@@ -6,9 +6,10 @@ class Draw(object):
         self.arg = arg
         self.drawable_obj = []
 
-    def draw(levelpicpath, Level, Player):
+    def draw(self, levelpicpath, Level, Player):
         import sys
         import pygame
+        self.drawable_obj.append(Player)
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
