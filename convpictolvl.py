@@ -1,6 +1,6 @@
 import compress_json
 import cv2
-import json
+
 
 imagepath = input("Path to the levelpic: ")
 
