@@ -17,7 +17,4 @@ for i in range(len(image)):
         if image[i][j][0] == 255 and int(image[i][j][1]) + int(image[i][j][2]) == 0:
             matrix[i][j] = "Obstacle"
 
-json_object = json.dumps(matrix, indent=4)
-
-with open(f"{imagepath}.json", "w") as outfile:
-    outfile.write(json_object)
+compress_json.dump(matrix, f"{imagepath}.json.bz")  # for a bz2 file
