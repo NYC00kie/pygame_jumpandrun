@@ -1,3 +1,4 @@
+import compress_json
 import cv2
 import json
 
@@ -12,10 +13,10 @@ for i in range(len(image)):
         matrix[i].append([])
         if sum(image[i][j]) == 0:
             matrix[i][j] = "Wall"
-        if image[i][j][0] == 255 and image[i][j][1] + image[i][j][2] == 0:
+        # Needs to be int of colorvalue because else it creates an overflow encounter in ubyte_scalars
+        if image[i][j][0] == 255 and int(image[i][j][1]) + int(image[i][j][2]) == 0:
             matrix[i][j] = "Obstacle"
 
-print(matrix)
 json_object = json.dumps(matrix, indent=4)
 
 with open(f"{imagepath}.json", "w") as outfile:
