@@ -2,11 +2,11 @@ from player import Player
 import compress_json
 
 
-class Level(object):
+class Level():
     """docstring for Level."""
 
-    def __init__(self, levelmatrixpath):
-        super(self).__init__()
+    def __init__(self, levelmatrixpath, levelpicpath, spritepath="textures/pygame.png"):
         self.matrix = compress_json.load(levelmatrixpath)
-        self.levelsize = (len(self.levelmatrix), len(self.levelmatrix[0]))
-        self.Player = Player()
+        self.picpath = levelpicpath
+        self.size = (len(self.matrix[0]), len(self.matrix))
+        self.Player = Player(spritepath)

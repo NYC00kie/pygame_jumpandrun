@@ -1,10 +1,13 @@
-class Player(object):
+import pygame
+
+
+class Player():
     """docstring for Player."""
 
-    def __init__(self, arg):
-        super(self).__init__()
-        self.arg = arg
+    def __init__(self, spritepath):
         self.posx = 0
         self.posy = 0
         self.speed = [0, 0]
-        self.spritepath = None
+        self.spritepath = spritepath
+        self.sprite = pygame.image.load(spritepath)
+        self.rect = self.sprite.get_rect()
