@@ -1,6 +1,8 @@
 import sys
 import pygame
 import time
+from level import Level
+import copy
 
 
 class Draw():
@@ -9,20 +11,37 @@ class Draw():
     def __init__(self):
         self.drawable_obj = []
 
-    def collision(self, Level):
+    def collision(self, Level, res=10):
         Player = Level.Player
 
+        speed = copy.deepcopy(Player.speed)
+
         bl = Player.rect.bottomleft
-        print(bl[1], bl[0])
-        if Level.matrix[bl[1]][bl[0]] == "Wall":
-            print("""
 
-            looooooooooooooooooooooooooooooooooooooooooooooo
-            oooooooooooooooooooooooooooooooooooooooooooooooo
-            oooooooooooooooooooooooooooooooooooooooooooooooo
-            l
+        speed[0] = speed[0] / res
+        speed[1] = speed[1] / res
 
-            """)
+        print(speed)
+        P1 = copy.deepcopy(Player.rect)
+        Player.rect = Player.rect.move(speed)
+        #time.sleep(1)
+        if Player.rect.bottomleft == P1.bottomleft:
+            print(
+                f"{Player.rect.bottomleft} == {P1.bottomleft} is {Player.rect.bottomleft == P1.bottomleft}")
+            print("oyy")
+        #for i in range(res):
+        #    pass
+        #
+        #print(bl[1], bl[0])
+        #if Level.matrix[bl[1]][bl[0]] == "Wall":
+        #    print("""
+
+        #    looooooooooooooooooooooooooooooooooooooooooooooo
+        #    oooooooooooooooooooooooooooooooooooooooooooooooo
+        #    oooooooooooooooooooooooooooooooooooooooooooooooo
+        #    l
+
+        #    """)
 
     def draw(self, Level):
 
@@ -63,7 +82,6 @@ class Draw():
 
 
 if __name__ == "__main__":
-    from level import Level
     newlevel = Level(levelmatrixpath="Levels/Level1.png.json.bz",
                      levelpicpath="Levelpictures/Level1.png",
                      spritepath="textures/Char.png")
