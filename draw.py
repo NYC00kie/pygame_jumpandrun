@@ -1,13 +1,30 @@
+import sys
+import pygame
+import time
+
+
 class Draw():
     """docstring for Draw."""
 
     def __init__(self):
         self.drawable_obj = []
 
+    def collision(self, Level):
+        Player = Level.Player
+
+        bl = Player.rect.bottomleft
+        print(bl[1], bl[0])
+        if Level.matrix[bl[1]][bl[0]] == "Wall":
+            print("""
+
+            looooooooooooooooooooooooooooooooooooooooooooooo
+            oooooooooooooooooooooooooooooooooooooooooooooooo
+            oooooooooooooooooooooooooooooooooooooooooooooooo
+            l
+
+            """)
+
     def draw(self, Level):
-        import sys
-        import pygame
-        import time
 
         Player = Level.Player
         bg = pygame.image.load(Level.picpath)
@@ -35,13 +52,14 @@ class Draw():
             else:
                 Player.speed[1] += 1
 
-            print(Player.speed, Player.rect.top, Player.rect.bottom,
-                  Player.rect.right, Player.rect.left)
+            self.collision(Level)
+
+            print(Player.rect.bottomleft)
             Player.rect = Player.rect.move(Player.speed)
             screen.blit(bg, (0, 0))  # draw background
             screen.blit(Player.sprite, Player.rect)
             pygame.display.flip()
-            time.sleep(0.03333)
+            time.sleep(0.05)
 
 
 if __name__ == "__main__":
