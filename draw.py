@@ -64,7 +64,6 @@ class Draw():
 
 if __name__ == "__main__":
     from level import Level
-    import pygame
     newlevel = Level(levelmatrixpath="Levels/Level1.png.json.bz",
                      levelpicpath="Levelpictures/Level1.png",
                      spritepath="textures/Char.png")
