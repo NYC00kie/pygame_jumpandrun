@@ -24,24 +24,24 @@ class Draw():
         print(speed)
         P1 = copy.deepcopy(Player.rect)
         Player.rect = Player.rect.move(speed)
-        #time.sleep(1)
+        time.sleep(1)
         if Player.rect.bottomleft == P1.bottomleft:
             print(
                 f"{Player.rect.bottomleft} == {P1.bottomleft} is {Player.rect.bottomleft == P1.bottomleft}")
             print("oyy")
-        #for i in range(res):
+        # for i in range(res):
         #    pass
         #
-        #print(bl[1], bl[0])
-        #if Level.matrix[bl[1]][bl[0]] == "Wall":
+        # print(bl[1], bl[0])
+        # if Level.matrix[bl[1]][bl[0]] == "Wall":
         #    print("""
-
-        #    looooooooooooooooooooooooooooooooooooooooooooooo
-        #    oooooooooooooooooooooooooooooooooooooooooooooooo
-        #    oooooooooooooooooooooooooooooooooooooooooooooooo
-        #    l
-
-        #    """)
+        #
+        #     looooooooooooooooooooooooooooooooooooooooooooooo
+        #     oooooooooooooooooooooooooooooooooooooooooooooooo
+        #     oooooooooooooooooooooooooooooooooooooooooooooooo
+        #     l
+        #
+        #     """)
 
     def draw(self, Level):
 
