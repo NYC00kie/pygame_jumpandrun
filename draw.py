@@ -29,7 +29,7 @@ class Draw():
 
         copyPlayerrect = copy.deepcopy(Player.rect)
 
-        print(speed)
+        print(speed, ggt)
 
         for i in range(ggt):
             copyPlayerrect = copyPlayerrect.move(speed)
@@ -68,8 +68,6 @@ class Draw():
             else:
                 Player.speed[1] += 1
 
-            print(Player.speed)
-
             # speedlimit
             if Player.speed[0] > 10:
                 Player.speed[0] = 10
@@ -80,12 +78,13 @@ class Draw():
             elif Player.speed[1] < -10:
                 Player.speed[1] = -10
 
+            print(Player.speed, "speet")
+
             Player.speed = list(np.multiply(
                 self.collision(Level),
                 Player.speed
                 ))
 
-            print(Player.rect)
             Player.rect = Player.rect.move(Player.speed)
             screen.blit(bg, (0, 0))  # draw background
             screen.blit(Player.sprite, Player.rect)
