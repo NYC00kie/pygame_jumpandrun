@@ -21,10 +21,8 @@ for i in range(len(image)):
             matrix[i][j] = "Obstacle"
 
         if int(image[i][j][0]) == 17 and int(image[i][j][1]) == 160 and int(image[i][j][2]) == 33:
-           matrix[i][j] = "PSpawn"
-           print("PSpawn")
-           assert (int(image[i][j][0]) == 17 and int(
-               image[i][j][1]) == 160 and int(image[i][j][2]) == 33)
+            matrix[i][j] = "PSpawn"
+            print("PSpawn")
 
 compress_json.dump(matrix, f"Levels/{iamgename}.json.bz")  # for a bz2 file
 
