@@ -18,25 +18,16 @@ class Draw():
         Player = Level.Player
 
         speed = copy.deepcopy(Player.speed)
-
-        ggt = math.gcd(speed[0], speed[1])
-
-        if not ggt:
-            return [1, 1]
-
-        speed[0] = speed[0] / ggt
-        speed[1] = speed[1] / ggt
-
         copyPlayerrect = copy.deepcopy(Player.rect)
 
-        print(speed, ggt)
+        copyPlayerrect = copyPlayerrect.move(speed)
 
-        for i in range(ggt):
-            copyPlayerrect = copyPlayerrect.move(speed)
-            bl = copyPlayerrect.bottomleft
-            if Level.matrix[bl[1]][bl[0]] == "Wall":
-
-                return [0, 0]
+        for i in range(len(Level.matrix)):
+            if "Wall" not in Level.matrix[i]:
+                continue
+            for j in range(len(Level.matrix[i])):
+                if Level.matrix[i][j] == "Wall" and copyPlayerrect.collidepoint(j, i):
+                    return [0, 0]
 
         return [1, 1]
 
