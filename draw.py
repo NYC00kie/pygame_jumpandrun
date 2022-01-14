@@ -25,7 +25,8 @@ class Draw():
         for i in range(len(Level.matrix)):
             if "Wall" not in Level.matrix[i]:
                 continue
-            for j in range(len(Level.matrix[i])):
+            indexstart = Level.matrix[i].index("Wall")
+            for j in range(indexstart, len(Level.matrix[i])):
                 if Level.matrix[i][j] == "Wall" and copyPlayerrect.collidepoint(j, i):
                     return [0, 0]
 
@@ -80,7 +81,7 @@ class Draw():
             screen.blit(bg, (0, 0))  # draw background
             screen.blit(Player.sprite, Player.rect)
             pygame.display.flip()
-            time.sleep(0.06)
+            time.sleep(0.02)
 
 
 if __name__ == "__main__":
