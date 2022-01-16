@@ -3,7 +3,6 @@ import pygame
 import time
 from level import Level
 import copy
-import math
 import numpy as np
 
 
@@ -71,7 +70,7 @@ class Draw():
             elif Player.speed[1] < -10:
                 Player.speed[1] = -10
 
-            # print(Player.speed, "speet")
+            print(Player.speed, "speet")
 
             Player.speed = list(np.multiply(
                 self.collision(Level),
