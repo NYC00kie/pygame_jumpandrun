@@ -96,6 +96,9 @@ class Draw():
             pygame.display.flip()
             time.sleep(0.05)
 
+    def drawmenu(self, Levelist):
+        pass
+
 
 if __name__ == "__main__":
     newlevel = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
