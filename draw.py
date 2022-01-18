@@ -42,7 +42,7 @@ class Draw():
         else:
             return False
 
-    def drawlevel(self, Level):
+    def drawlevel(self, Level, pygame):
 
         Player = Level.Player
         bg = pygame.image.load(Level.picpath)
@@ -108,4 +108,4 @@ if __name__ == "__main__":
     pygame.init()
     draw = Draw()
     print(newlevel.size)
-    draw.drawlevel(newlevel)
+    draw.drawlevel(newlevel, pygame)
