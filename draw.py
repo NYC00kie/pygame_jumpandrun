@@ -32,13 +32,26 @@ class Draw():
 
         return [1, 1]
 
-    def draw(self, Level):
+    def checkforfinish(self, Level):
+        finish = Level.finish
+        Player = Level.Player
+        print(finish)
+        if Player.rect.collidepoint(finish[0], finish[1]):
+            print("finished")
+            return True
+        else:
+            return False
+
+    def drawlevel(self, Level):
 
         Player = Level.Player
         bg = pygame.image.load(Level.picpath)
         screen = pygame.display.set_mode(Level.size)
         self.drawable_obj.append(Player)
         while True:
+
+            if self.checkforfinish(Level):
+                return None
 
             pressed_keys = pygame.key.get_pressed()
 
@@ -92,4 +105,4 @@ if __name__ == "__main__":
     pygame.init()
     draw = Draw()
     print(newlevel.size)
-    draw.draw(newlevel)
+    draw.drawlevel(newlevel)
