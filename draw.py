@@ -131,18 +131,13 @@ class Draw():
 
     def drawmenu(self, Levelist, pygame):
         res = (700, 720)
-        color = (255, 255, 255)
 
         # light shade of the button
         color_light = (170, 170, 170)
 
-        #dark shade of the button
-        color_dark = (100, 100, 100)
-
         screen = pygame.display.set_mode(res)
         width = screen.get_width()
         height = screen.get_height()
-        smallfont = pygame.font.SysFont('Corbel', 35)
         texts = []
         for i in range(-1, 2):
             btn = Button(f"Level{i+1}", (width/2, height/2+50*i),
