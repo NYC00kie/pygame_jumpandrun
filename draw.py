@@ -41,6 +41,7 @@ class Button:
                     self.change_text(self.feedback, bg="red")
                     draw = Draw()
                     draw.drawlevel(self.assignedobj, pygame)
+                    self.assignedobj.reset()
 
 
 class Draw():
