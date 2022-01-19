@@ -4,25 +4,7 @@ import sys
 from level import Level
 import copy
 import numpy as np
-from threading import Thread
 sys.path.append(".")
-
-
-class ThreadWithReturnValue(Thread):
-    def __init__(self, group=None, target=None, name=None,
-                 args=(), kwargs={}, Verbose=None):
-        Thread.__init__(self, group, target, name, args, kwargs)
-        self._return = None
-
-    def run(self):
-        print(type(self._target))
-        if self._target is not None:
-            self._return = self._target(*self._args,
-                                        **self._kwargs)
-
-    def join(self, *args):
-        Thread.join(self, *args)
-        return self._return
 
 
 class Button:
@@ -66,7 +48,7 @@ class Draw():
     def __init__(self):
         self.drawable_obj = []
 
-    def collision(self, Level, collided):
+    def collision(self, Level):
         """calculates if the player collides with an object """
         Player = Level.Player
 
@@ -86,12 +68,10 @@ class Draw():
 
         return [1, 1]
 
-    def checkforfinish(self, Level, finished):
+    def checkforfinish(self, Level):
         finish = Level.finish
         Player = Level.Player
-        print(finish)
         if Player.rect.collidepoint(finish[0], finish[1]):
-            print("finished")
             return True
         else:
             return False
@@ -102,26 +82,15 @@ class Draw():
         bg = pygame.image.load(Level.picpath)
         screen = pygame.display.set_mode(Level.size)
         self.drawable_obj.append(Player)
-        finished = []
-        collided = []
-
         while True:
 
             starttime = time.time()
 
-            if finished[0]:
+            if self.checkforfinish(Level):
                 return None
 
-            finished = []
-            collided = []
-
-            finishthread = ThreadWithReturnValue(
-                target=self.checkforfinish, args=(Level, finished))
-            collisionthread = ThreadWithReturnValue(
-                target=self.collision, args=(Level, collided))
             pressed_keys = pygame.key.get_pressed()
-            collisionthread.start()
-            finishthread.start()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or pressed_keys[pygame.K_ESCAPE]:
                     sys.exit()
@@ -154,7 +123,7 @@ class Draw():
                 Player.speed[1] = -10
 
             Player.speed = list(np.multiply(
-                collided[0],
+                self.collision(Level),
                 Player.speed
                 ))
 
@@ -196,11 +165,19 @@ class Draw():
 
 
 if __name__ == "__main__":
-    newlevel = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
-                     levelpicpath="Levelpictures/Level1.tif",
-                     spritepath="textures/Char.png")
+    level1 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
+                   levelpicpath="Levelpictures/Level1.tif",
+                   spritepath="textures/Char.png")
+
+    level2 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
+                   levelpicpath="Levelpictures/Level1.tif",
+                   spritepath="textures/Char.png")
+
+    level3 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
+                   levelpicpath="Levelpictures/Level1.tif",
+                   spritepath="textures/Char.png")
 
     pygame.init()
     draw = Draw()
-    print(newlevel.size)
-    draw.drawmenu([newlevel, newlevel, newlevel], pygame)
+    print(level1.size)
+    draw.drawmenu([level1, level2, level3], pygame)
