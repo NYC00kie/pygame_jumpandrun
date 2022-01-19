@@ -83,6 +83,8 @@ class Draw():
         self.drawable_obj.append(Player)
         while True:
 
+            starttime = time.time()
+
             if self.checkforfinish(Level):
                 return None
 
@@ -116,8 +118,6 @@ class Draw():
             elif Player.speed[1] < -10:
                 Player.speed[1] = -10
 
-            print(Player.speed, "speet")
-
             Player.speed = list(np.multiply(
                 self.collision(Level),
                 Player.speed
@@ -127,7 +127,11 @@ class Draw():
             screen.blit(bg, (0, 0))  # draw background
             screen.blit(Player.sprite, Player.rect)
             pygame.display.flip()
-            time.sleep(0.05)
+
+            diff = time.time() - starttime
+
+            if diff < 1/30:
+                time.sleep(1/30-(diff))
 
     def drawmenu(self, Levelist, pygame):
         res = (700, 720)
@@ -165,4 +169,4 @@ if __name__ == "__main__":
     pygame.init()
     draw = Draw()
     print(newlevel.size)
-    draw.drawmenu(newlevel, pygame)
+    draw.drawlevel(newlevel, pygame)
