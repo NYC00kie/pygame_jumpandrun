@@ -4,15 +4,33 @@ import sys
 from level import Level
 import copy
 import numpy as np
+from threading import Thread
 sys.path.append(".")
+
+
+class ThreadWithReturnValue(Thread):
+    def __init__(self, group=None, target=None, name=None,
+                 args=(), kwargs={}, Verbose=None):
+        Thread.__init__(self, group, target, name, args, kwargs, Verbose)
+        self._return = None
+
+    def run(self):
+        if self._Thread__target is not None:
+            self._return = self._Thread__target(*self._Thread__args,
+                                                **self._Thread__kwargs)
+
+    def join(self):
+        Thread.join(self)
+        return self._return
 
 
 class Button:
     """Create a button, then blit the surface in the while loop"""
 
-    def __init__(self, text,  pos, font, bg="black", feedback=""):
+    def __init__(self, text,  pos, font, assignedobj, bg="black", feedback=""):
         self.x, self.y = pos
         self.font = pygame.font.SysFont("Arial", font)
+        self.assignedobj = assignedobj
         if feedback == "":
             self.feedback = "text"
         else:
@@ -31,12 +49,14 @@ class Button:
     def show(self, screen):
         screen.blit(self.surface, (self.x, self.y))
 
-    def click(self, event):
+    def click(self, event, pygame):
         x, y = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]:
                 if self.rect.collidepoint(x, y):
                     self.change_text(self.feedback, bg="red")
+                    draw = Draw()
+                    draw.drawlevel(self.assignedobj, pygame)
 
 
 class Draw():
@@ -45,7 +65,7 @@ class Draw():
     def __init__(self):
         self.drawable_obj = []
 
-    def collision(self, Level):
+    def collision(self, Level, collided):
         """calculates if the player collides with an object """
         Player = Level.Player
 
@@ -65,7 +85,7 @@ class Draw():
 
         return [1, 1]
 
-    def checkforfinish(self, Level):
+    def checkforfinish(self, Level, finished):
         finish = Level.finish
         Player = Level.Player
         print(finish)
@@ -81,18 +101,32 @@ class Draw():
         bg = pygame.image.load(Level.picpath)
         screen = pygame.display.set_mode(Level.size)
         self.drawable_obj.append(Player)
+        finished = []
+        collided = []
+
         while True:
 
             starttime = time.time()
 
-            if self.checkforfinish(Level):
+            if finished[0]:
                 return None
 
-            pressed_keys = pygame.key.get_pressed()
+            finished = []
+            collided = []
 
+            finishthread = ThreadWithReturnValue(
+                target=self.checkforfinish, args=(Level, finished))
+            collisionthread = ThreadWithReturnValue(
+                target=self.collision, args=(Level, collided))
+            pressed_keys = pygame.key.get_pressed()
+            collisionthread.start()
+            finishthread.start()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or pressed_keys[pygame.K_ESCAPE]:
                     sys.exit()
+
+                if pressed_keys[pygame.K_DELETE]:
+                    return None
 
             if pressed_keys[pygame.K_a]:
                 Player.speed[0] += -2
@@ -119,7 +153,7 @@ class Draw():
                 Player.speed[1] = -10
 
             Player.speed = list(np.multiply(
-                self.collision(Level),
+                collided[0],
                 Player.speed
                 ))
 
@@ -134,25 +168,24 @@ class Draw():
                 time.sleep(1/30-(diff))
 
     def drawmenu(self, Levelist, pygame):
-        res = (700, 720)
 
         # light shade of the button
-        color_light = (170, 170, 170)
+        color_light = (100, 100, 100)
 
-        screen = pygame.display.set_mode(res)
+        screen = pygame.display.set_mode(Levelist[0].size)
         width = screen.get_width()
         height = screen.get_height()
         texts = []
         for i in range(-1, 2):
-            btn = Button(f"Level{i+1}", (width/2, height/2+50*i),
-                         font=35, bg=color_light, feedback=f"Test{i+1}")
+            btn = Button(f"Level {i+1}", (width/2, height/2+50*i),
+                         font=35, assignedobj=Levelist[i+1], bg=color_light, feedback=f"Finished {i+1}")
             texts.append(btn)
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
+                    sys.exit()
                 for btn in texts:
-                    btn.click(event)
+                    btn.click(event, pygame)
             screen.fill((60, 25, 60))
 
             for i in texts:
@@ -169,4 +202,4 @@ if __name__ == "__main__":
     pygame.init()
     draw = Draw()
     print(newlevel.size)
-    draw.drawlevel(newlevel, pygame)
+    draw.drawmenu([newlevel, newlevel, newlevel], pygame)
