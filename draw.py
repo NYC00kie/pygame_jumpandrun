@@ -25,13 +25,15 @@ class Button:
         """Change the text whe you click"""
         self.text = self.font.render(text, 1, pygame.Color("White"))
         self.size = self.text.get_size()
+        print(self.size)
         self.surface = pygame.Surface(self.size)
         self.surface.fill(bg)
         self.surface.blit(self.text, (0, 0))
-        self.rect = pygame.Rect(self.x, self.y, self.size[0], self.size[1])
+        self.rect = pygame.Rect(
+            self.x-0.5*self.size[0], self.y, self.size[0], self.size[1])
 
     def show(self, screen):
-        screen.blit(self.surface, (self.x, self.y))
+        screen.blit(self.surface, (self.x-(0.5*self.size[0]), self.y))
 
     def click(self, event, pygame):
         x, y = pygame.mouse.get_pos()
