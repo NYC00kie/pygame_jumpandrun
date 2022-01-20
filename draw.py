@@ -58,7 +58,7 @@ class Draw():
         copyPlayerrect = copy.deepcopy(Player.rect)
 
         copyPlayerrect = copyPlayerrect.move(speed)
-
+        # only itterate through the height and width of the sprite for optimisation purposes
         for i in range(copyPlayerrect.topleft[1], copyPlayerrect.bottomright[1]):
             # skip itteration if there is no Wall
             if "Wall" not in Level.matrix[i]:
@@ -73,7 +73,6 @@ class Draw():
     def checkforfinish(self, Level):
         finish = Level.finish
         Player = Level.Player
-        print(finish)
         if Player.rect.collidepoint(finish[0], finish[1]):
             print("finished")
             return True
@@ -97,12 +96,15 @@ class Draw():
             pressed_keys = pygame.key.get_pressed()
 
             for event in pygame.event.get():
+                # exits the programm if you X out of it or if you press escape
                 if event.type == pygame.QUIT or pressed_keys[pygame.K_ESCAPE]:
                     sys.exit()
 
+                # returns to the menu screen if the del key is pressed
                 if pressed_keys[pygame.K_DELETE]:
                     return None
 
+            # speed calculation
             if pressed_keys[pygame.K_a]:
                 Player.speed[0] += -2
             elif pressed_keys[pygame.K_d]:
@@ -127,6 +129,9 @@ class Draw():
             elif Player.speed[1] < -10:
                 Player.speed[1] = -10
 
+            # multiplies the speed list with a returned list from the
+            # collision function which keeps the speed as it is or
+            # it multiplies it with zeros. This stops falling through walls
             Player.speed = list(np.multiply(
                 self.collision(Level),
                 Player.speed
@@ -139,6 +144,8 @@ class Draw():
 
             diff = time.time() - starttime
 
+            # keeping the amount of ticks (computation cycles) per second roughly the same
+            # which in return results in a constant and playable playspeed
             if diff < 1/30:
                 time.sleep(1/30-(diff))
 
