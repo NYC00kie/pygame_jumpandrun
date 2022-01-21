@@ -13,6 +13,7 @@ class Level():
         self.Player = Player(self.spritepath)
         self.start = self.loadPlayerposstart()
         self.finish = self.loadfinish()
+        self.obstaclelist = self.loadobstacle()
         self.Player.rect = self.Player.rect.move(self.start)
 
     def loadPlayerposstart(self):
@@ -31,6 +32,14 @@ class Level():
                     return [j, i]
 
         return [0, 0]
+
+    def loadobstacle(self):
+        obstlist = []
+        for i in range(len(self.matrix)):
+            for j in range(len(self.matrix[i])):
+                if self.matrix[i][j] == "Obstacle":
+                    obstlist.append([j, i])
+        return obstlist
 
     def reset(self):
         self.Player = Player(self.spritepath)

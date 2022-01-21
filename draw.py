@@ -52,7 +52,7 @@ class Draw():
     def __init__(self):
         self.drawable_obj = []
 
-    def collision(self, Level):
+    def collision_wall(self, Level):
         """calculates if the player collides with an object """
         Player = Level.Player
 
@@ -71,6 +71,12 @@ class Draw():
                     return [0, 0]
 
         return [1, 1]
+
+    def collison_obstacle(self, Level):
+        Player = Level.Player
+        for cord in Level.obstaclelist:
+            if Player.rect.collidepoint(cord):
+                Level.reset()
 
     def checkforfinish(self, Level):
         finish = Level.finish
@@ -135,7 +141,7 @@ class Draw():
             # collision function which keeps the speed as it is or
             # it multiplies it with zeros. This stops falling through walls
             Player.speed = list(np.multiply(
-                self.collision(Level),
+                self.collision_wall(Level),
                 Player.speed
                 ))
 
@@ -179,19 +185,4 @@ class Draw():
 
 
 if __name__ == "__main__":
-    level1 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
-                   levelpicpath="Levelpictures/Level1.tif",
-                   spritepath="textures/Char.png")
-
-    level2 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
-                   levelpicpath="Levelpictures/Level1.tif",
-                   spritepath="textures/Char.png")
-
-    level3 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
-                   levelpicpath="Levelpictures/Level1.tif",
-                   spritepath="textures/Char.png")
-
-    pygame.init()
-    draw = Draw()
-
-    draw.drawmenu([level1, level2, level3], pygame)
+    pass

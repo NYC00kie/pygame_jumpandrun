@@ -1,6 +1,8 @@
-import pygame
-from level import Level
 from draw import Draw
+from level import Level
+import pygame
+import sys
+sys.path.append(".")
 if __name__ == "__main__":
     pygame.init()
     level1 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
