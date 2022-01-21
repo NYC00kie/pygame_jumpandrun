@@ -1,7 +1,8 @@
 import time
 import pygame
 import sys
-from level import Level
+import pygame_widgets
+from pygame_widgets.slider import Slider
 import copy
 import numpy as np
 
@@ -54,8 +55,10 @@ class Button:
 class Draw():
     """docstring for Draw."""
 
-    def __init__(self):
+    def __init__(self, musicpath):
         self.drawable_obj = []
+        self.musicpath = musicpath
+        self.musicobject = pygame.mixer.Sound(self.musicpath)
 
     def collision_wall(self, Level):
         """calculates if the player collides with a wall """
@@ -167,17 +170,23 @@ class Draw():
 
         # light shade of the button
         color_light = (100, 100, 100)
-
+        self.musicobject = pygame.mixer.Sound(self.musicpath)
+        self.musicobject.set_volume(0.1)
+        self.musicobject.play(-1)
         screen = pygame.display.set_mode(Levelist[0].size)
         width = screen.get_width()
         height = screen.get_height()
+
         texts = []
         for i in range(-1, 2):
-            btn = Button(f"Level {i+1}", (width/2, height/2+50*i),
-                         font=35, assignedobj=Levelist[i+1], bg=color_light, feedback=f"Finished {i+1}")
+            btn = Button(f"Level {i+2}", (width/2, height/2+50*i),
+                         font=35, assignedobj=Levelist[i+1], bg=color_light, feedback=f"Ended {i+2}")
             texts.append(btn)
+        slider = Slider(screen, int(width/2-(0.5*width*1/4)), int(height/2+50*(i+1)),
+                        width*1/4, 20, min=0, max=0.6, step=0.01, initial=0.1)
         while True:
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 for btn in texts:
@@ -190,6 +199,9 @@ class Draw():
             for btn in texts:
                 btn.show(screen)
 
+            self.musicobject.set_volume(slider.getValue())
+            print(slider.getValue())
+            pygame_widgets.update(events)
             pygame.display.update()
 
 

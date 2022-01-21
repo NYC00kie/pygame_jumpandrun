@@ -17,6 +17,6 @@ if __name__ == "__main__":
                    levelpicpath="Levelpictures/Level1.tif",
                    spritepath="textures/Char.png")
 
-    draw = Draw()
+    draw = Draw("backgroundmusic/Homescreen.mp3")
 
     draw.drawmenu([level1, level2, level3], pygame)
