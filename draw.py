@@ -55,7 +55,7 @@ class Button:
 class Draw():
     """docstring for Draw."""
 
-    def __init__(self, musicpath):
+    def __init__(self, musicpath="backgroundmusic/Homescreen.mp3"):
         self.drawable_obj = []
         self.musicpath = musicpath
         self.musicobject = pygame.mixer.Sound(self.musicpath)
@@ -131,8 +131,8 @@ class Draw():
                     Player.speed[0] += -1
                 elif Player.speed[0] < 0:
                     Player.speed[0] += 1
-            if pressed_keys[pygame.K_SPACE]:
-                Player.speed[1] += -5
+            if pressed_keys[pygame.K_SPACE] and Player.speed[1]**2 <= 1:
+                Player.speed[1] += -10
             else:
                 Player.speed[1] += 1
 
