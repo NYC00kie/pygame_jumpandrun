@@ -53,7 +53,7 @@ class Draw():
         self.drawable_obj = []
 
     def collision_wall(self, Level):
-        """calculates if the player collides with an object """
+        """calculates if the player collides with a wall """
         Player = Level.Player
 
         speed = copy.deepcopy(Player.speed)
@@ -73,6 +73,7 @@ class Draw():
         return [1, 1]
 
     def collison_obstacle(self, Level):
+        """calculates if the Player collides with an obstacle and then resets the level"""
         Player = Level.Player
         for cord in Level.obstaclelist:
             if Player.rect.collidepoint(cord):

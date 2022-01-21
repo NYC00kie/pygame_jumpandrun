@@ -6,6 +6,7 @@ class Level():
     """docstring for Level."""
 
     def __init__(self, levelmatrixpath, levelpicpath, spritepath="textures/Char.png"):
+        self.matrixpath = levelmatrixpath
         self.matrix = compress_json.load(levelmatrixpath)
         self.picpath = levelpicpath
         self.spritepath = spritepath
@@ -42,5 +43,4 @@ class Level():
         return obstlist
 
     def reset(self):
-        self.Player = Player(self.spritepath)
-        self.Player.rect = self.Player.rect.move(self.start)
+        self.__init__(self.matrixpath, self.picpath, self.spritepath)
