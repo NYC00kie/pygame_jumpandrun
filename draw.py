@@ -45,6 +45,11 @@ class Button:
                     draw.drawlevel(self.assignedobj, pygame)
                     self.assignedobj.reset()
 
+    def hover(self, screen):
+        x, y = pygame.mouse.get_pos()
+        if self.rect.collidepoint(x, y):
+            screen.blit(pygame.image.load(self.assignedobj.picpath), (0, 0))
+
 
 class Draw():
     """docstring for Draw."""
@@ -177,10 +182,13 @@ class Draw():
                     sys.exit()
                 for btn in texts:
                     btn.click(event, pygame)
+                    btn.hover(screen)
             screen.fill((60, 25, 60))
 
-            for i in texts:
-                i.show(screen)
+            for btn in texts:
+                btn.hover(screen)
+            for btn in texts:
+                btn.show(screen)
 
             pygame.display.update()
 
