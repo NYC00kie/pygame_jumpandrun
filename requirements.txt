@@ -2,3 +2,4 @@ compress_json==1.0.4
 numpy==1.22.0
 opencv_python==4.5.4.60
 pygame==2.1.2
+pygame_widgets==1.0.0
