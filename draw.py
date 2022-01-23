@@ -2,6 +2,7 @@ import time
 import pygame
 import sys
 import pygame_widgets
+from level import Level as Level_class
 from pygame_widgets.slider import Slider
 import copy
 import numpy as np
@@ -85,7 +86,8 @@ class Draw():
         Player = Level.Player
         for cord in Level.obstaclelist:
             if Player.rect.collidepoint(cord):
-                Level.reset()
+                return True
+        return False
 
     def checkforfinish(self, Level):
         finish = Level.finish
@@ -98,14 +100,15 @@ class Draw():
 
     def drawlevel(self, Level, pygame):
 
-        Player = Level.Player
-        bg = pygame.image.load(Level.picpath)
-        screen = pygame.display.set_mode(Level.size)
-        self.drawable_obj.append(Player)
-
         while True:
 
             starttime = time.time()
+
+            if self.collison_obstacle(Level):
+                Level.reset()
+                Player = Level.Player
+                bg = pygame.image.load(Level.picpath)
+                screen = pygame.display.set_mode(Level.size)
 
             if self.checkforfinish(Level):
                 return None
@@ -200,7 +203,7 @@ class Draw():
                 btn.show(screen)
 
             self.musicobject.set_volume(slider.getValue())
-            print(slider.getValue())
+
             pygame_widgets.update(events)
             pygame.display.update()
 
