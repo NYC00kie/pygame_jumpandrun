@@ -5,7 +5,6 @@ import cv2
 imagepath = input("Path to the levelpic: ")
 iamgename = imagepath.split("/")[-1]
 image = cv2.imread(imagepath)
-matrix2 = cv2.imread(imagepath)
 print(len(image), len(image[0]), len(image[0][0]))
 matrix = []
 
