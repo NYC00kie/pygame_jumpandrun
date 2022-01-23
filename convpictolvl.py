@@ -28,10 +28,3 @@ for i in range(len(image)):
 
 
 compress_json.dump(matrix, f"Levels/{iamgename}.json.bz")  # for a bz2 file
-
-
-cv2.imshow("lele", matrix2)
-
-cv2.waitKey(0)
-
-cv2.destroyAllWindows()
