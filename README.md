@@ -13,3 +13,5 @@ Obstacle Markers are Blue (#0000ff)
 Player Spawn Markers are Green (#21a011)
 
 Player Finish Markers are Red (#ff0000)
+
+the collorcoded maps need to be provided in a compressionless format like .tif (uncompressed) or bmp

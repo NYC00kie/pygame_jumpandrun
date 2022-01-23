@@ -3,7 +3,8 @@ import cv2
 
 
 imagepath = input("Path to the levelpic: ")
-iamgename = imagepath.split("/")[-1]
+iamgenameandextension = imagepath.split("/")[-1]
+imagename = iamgenameandextension.split(".")[0]
 image = cv2.imread(imagepath)
 print(len(image), len(image[0]), len(image[0][0]))
 matrix = []
@@ -26,4 +27,5 @@ for i in range(len(image)):
             matrix[i][j] = "PFinish"
 
 
-compress_json.dump(matrix, f"Levels/{iamgename}.json.bz")  # for a bz2 file
+# for a bz2 file
+compress_json.dump(matrix, f"Levels/{imagename}.json.bz")
