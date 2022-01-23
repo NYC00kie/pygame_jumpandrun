@@ -106,9 +106,10 @@ class Draw():
 
             if self.collison_obstacle(Level):
                 Level.reset()
-                Player = Level.Player
-                bg = pygame.image.load(Level.picpath)
-                screen = pygame.display.set_mode(Level.size)
+                
+            Player = Level.Player
+            bg = pygame.image.load(Level.picpath)
+            screen = pygame.display.set_mode(Level.size)
 
             if self.checkforfinish(Level):
                 return None
