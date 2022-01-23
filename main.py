@@ -5,8 +5,8 @@ import sys
 sys.path.append(".")
 if __name__ == "__main__":
     pygame.init()
-    level1 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
-                   levelpicpath="Levelpictures/Level1.tif",
+    level1 = Level(levelmatrixpath="Levels/Level1.json.bz",
+                   levelpicpath="Levelpictures/Level1.png",
                    spritepath="textures/Char.png")
 
     level2 = Level(levelmatrixpath="Levels/Level1.tif.json.bz",
