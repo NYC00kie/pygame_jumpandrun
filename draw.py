@@ -190,8 +190,9 @@ class Draw():
                         width*1/4, 20, min=0, max=0.6, step=0.01, initial=0.1)
         while True:
             events = pygame.event.get()
+            pressed_keys = pygame.key.get_pressed()
             for event in events:
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT or pressed_keys[pygame.K_ESCAPE]:
                     sys.exit()
                 for btn in texts:
                     btn.click(event, pygame)
