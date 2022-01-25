@@ -13,8 +13,8 @@ if __name__ == "__main__":
                    levelpicpath="Levelpictures/Level2.png",
                    spritepath="textures/Char.png")
 
-    level3 = Level(levelmatrixpath="Levels/Level_test.json.bz",
-                   levelpicpath="Levelpictures/Level_test.tif",
+    level3 = Level(levelmatrixpath="Levels/Level3.json.bz",
+                   levelpicpath="Levelpictures/Level3.png",
                    spritepath="textures/Char.png")
 
     draw = Draw("backgroundmusic/Homescreen.mp3")
