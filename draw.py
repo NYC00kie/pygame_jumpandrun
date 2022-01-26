@@ -112,6 +112,18 @@ class Draw():
             screen = pygame.display.set_mode(Level.size)
 
             if self.checkforfinish(Level):
+                endscreen = pygame.image.load(Level.winpicpath)
+                endscreensize = endscreen.get_size()
+                print(endscreensize)
+                width, height = screen.get_width(), screen.get_height()
+                screen.blit(
+                    endscreen, (
+                        int(width/2-(endscreensize[0]/2)),
+                        int(height/2-(endscreensize[1]/2))
+                        )
+                    )
+                pygame.display.flip()
+                time.sleep(2)
                 return None
 
             pressed_keys = pygame.key.get_pressed()
