@@ -74,14 +74,11 @@ class Draw():
 
         copyPlayerrect = copyPlayerrect.move(speed)
         # only itterate through the height and width of the sprite for optimisation purposes
-        for i in range(copyPlayerrect.topleft[1], copyPlayerrect.bottomright[1]):
-            # skip itteration if there is no Wall
-            if "Wall" not in Level.matrix[i]:
-                continue
-
-            for j in range(copyPlayerrect.topleft[0], copyPlayerrect.bottomright[0]):
-                if Level.matrix[i][j] == "Wall" and copyPlayerrect.collidepoint(j, i):
-                    return [0, 0]
+        for i in range(copyPlayerrect.top, copyPlayerrect.bottom):
+            # return if there is a wall in the player sprite
+            # this works because i begins on top of the Player Sprite
+            if "Wall" in Level.matrix[i][copyPlayerrect.left:copyPlayerrect.right]:
+                return [0, 0]
 
         return [1, 1]
 
