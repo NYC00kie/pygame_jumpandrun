@@ -17,6 +17,7 @@ class Button:
         self.x, self.y = pos
         self.font = pygame.font.SysFont("Arial", font)
         self.assignedobj = assignedobj
+        self.assignedobjpic = pygame.image.load(self.assignedobj.picpath)
         if feedback == "":
             self.feedback = "text"
         else:
@@ -44,7 +45,7 @@ class Button:
                 if self.rect.collidepoint(x, y):
                     self.change_text(self.feedback, bg="red")
                     music.musicobject.stop()
-                    draw = Draw()
+                    draw = Draw(self.assignedobj.levelmusicpath)
                     draw.drawlevel(self.assignedobj, pygame,
                                    volume=music.musicobject.get_volume())
                     self.assignedobj.reset()
@@ -53,7 +54,7 @@ class Button:
     def hover(self, screen):
         x, y = pygame.mouse.get_pos()
         if self.rect.collidepoint(x, y):
-            screen.blit(pygame.image.load(self.assignedobj.picpath), (0, 0))
+            screen.blit(self.assignedobjpic, (0, 0))
 
 
 class Draw():
@@ -208,6 +209,8 @@ class Draw():
         slider = Slider(screen, int(width/2-(0.5*width*1/4)), int(height/2+50*(i+1)),
                         width*1/4, 20, min=0, max=0.6, step=0.01, initial=0.1)
         while True:
+
+            start = time.time()
             events = pygame.event.get()
             pressed_keys = pygame.key.get_pressed()
             for event in events:
@@ -215,7 +218,6 @@ class Draw():
                     sys.exit()
                 for btn in texts:
                     btn.click(event, pygame, self)
-                    btn.hover(screen)
             screen.fill((60, 25, 60))
 
             for btn in texts:
@@ -227,6 +229,11 @@ class Draw():
 
             pygame_widgets.update(events)
             pygame.display.update()
+
+            diff = time.time() - start
+
+            if diff < 1/5:
+                time.sleep(1/5-(diff))
 
 
 if __name__ == "__main__":
