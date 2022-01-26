@@ -37,15 +37,18 @@ class Button:
     def show(self, screen):
         screen.blit(self.surface, (self.x-(0.5*self.size[0]), self.y))
 
-    def click(self, event, pygame):
+    def click(self, event, pygame, music):
         x, y = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]:
                 if self.rect.collidepoint(x, y):
                     self.change_text(self.feedback, bg="red")
+                    music.musicobject.stop()
                     draw = Draw()
-                    draw.drawlevel(self.assignedobj, pygame)
+                    draw.drawlevel(self.assignedobj, pygame,
+                                   volume=music.musicobject.get_volume())
                     self.assignedobj.reset()
+                    music.musicobject.play(-1)
 
     def hover(self, screen):
         x, y = pygame.mouse.get_pos()
@@ -98,12 +101,11 @@ class Draw():
         else:
             return False
 
-    def drawlevel(self, Level, pygame):
+    def drawlevel(self, Level, pygame, volume=0.1):
 
-        self.musicobject = pygame.mixer.Sound(Level.levelmusicpath)
-
-        self.musicobject.play(-1)
-
+        Level.musicobject = pygame.mixer.Sound(Level.levelmusicpath)
+        Level.musicobject.set_volume(volume)
+        Level.musicobject.play(-1)
         while True:
 
             starttime = time.time()
@@ -127,6 +129,7 @@ class Draw():
                         )
                     )
                 pygame.display.flip()
+                Level.musicobject.stop()
                 time.sleep(2)
                 return None
 
@@ -139,6 +142,7 @@ class Draw():
 
                 # returns to the menu screen if the del key is pressed
                 if pressed_keys[pygame.K_DELETE]:
+                    Level.musicobject.stop()
                     return None
 
             # speed calculation
@@ -210,7 +214,7 @@ class Draw():
                 if event.type == pygame.QUIT or pressed_keys[pygame.K_ESCAPE]:
                     sys.exit()
                 for btn in texts:
-                    btn.click(event, pygame)
+                    btn.click(event, pygame, self)
                     btn.hover(screen)
             screen.fill((60, 25, 60))
 
