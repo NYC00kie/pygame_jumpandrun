@@ -11,7 +11,7 @@ class Level():
         self.picpath = levelpicpath
         self.spritepath = spritepath
         self.winpicpath = winpicpath
-        self.levelpicpath = levelmusicpath
+        self.levelmusicpath = levelmusicpath
         self.size = (len(self.matrix[0]), len(self.matrix))
         self.Player = Player(self.spritepath)
         self.start = self.loadPlayerposstart()

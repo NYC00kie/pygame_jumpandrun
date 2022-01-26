@@ -100,6 +100,10 @@ class Draw():
 
     def drawlevel(self, Level, pygame):
 
+        self.musicobject = pygame.mixer.Sound(Level.levelmusicpath)
+
+        self.musicobject.play(-1)
+
         while True:
 
             starttime = time.time()
@@ -192,7 +196,6 @@ class Draw():
         screen = pygame.display.set_mode(Levelist[0].size)
         width = screen.get_width()
         height = screen.get_height()
-
         texts = []
         for i in range(-1, 2):
             btn = Button(f"Level {i+2}", (width/2, height/2+50*i),
