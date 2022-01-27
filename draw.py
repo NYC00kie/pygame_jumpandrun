@@ -104,6 +104,7 @@ class Draw():
         Level.musicobject = pygame.mixer.Sound(Level.levelmusicpath)
         Level.musicobject.set_volume(volume)
         Level.musicobject.play(-1)
+        bg = pygame.image.load(Level.picpath)
         while True:
 
             starttime = time.time()
@@ -112,7 +113,7 @@ class Draw():
                 Level.reset()
 
             Player = Level.Player
-            bg = pygame.image.load(Level.picpath)
+
             screen = pygame.display.set_mode(Level.size)
 
             if self.checkforfinish(Level):
@@ -229,8 +230,8 @@ class Draw():
 
             diff = time.time() - start
 
-            if diff < 1/5:
-                time.sleep(1/5-(diff))
+            if diff < 1/15:
+                time.sleep(1/15-(diff))
 
 
 if __name__ == "__main__":
