@@ -139,7 +139,11 @@ class Draw():
                 if event.type == pygame.QUIT or pressed_keys[pygame.K_ESCAPE]:
                     sys.exit()
 
-                # returns to the menu screen if the del key is pressed
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE and Player.speed[1]**2 <= 1:
+                        Player.speed[1] += -20
+
+                        # returns to the menu screen if the del key is pressed
                 if pressed_keys[pygame.K_DELETE]:
                     Level.musicobject.stop()
                     return None
@@ -154,10 +158,8 @@ class Draw():
                     Player.speed[0] += -1
                 elif Player.speed[0] < 0:
                     Player.speed[0] += 1
-            if pressed_keys[pygame.K_SPACE] and Player.speed[1]**2 <= 1:
-                Player.speed[1] += -10
-            else:
-                Player.speed[1] += 1
+
+            Player.speed[1] += 1
 
             # speedlimit
             if Player.speed[0] > 10:
