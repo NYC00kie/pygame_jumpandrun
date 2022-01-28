@@ -17,7 +17,9 @@ class Button:
         self.x, self.y = pos
         self.font = pygame.font.SysFont("Arial", font)
         self.assignedobj = assignedobj
-        self.assignedobjpic = pygame.image.load(self.assignedobj.picpath)
+        self.assignedobjpic = pygame.image.load(
+            self.assignedobj.picpath
+            ).convert_alpha()
         if feedback == "":
             self.feedback = "text"
         else:
@@ -104,7 +106,7 @@ class Draw():
         Level.musicobject = pygame.mixer.Sound(Level.levelmusicpath)
         Level.musicobject.set_volume(volume)
         Level.musicobject.play(-1)
-        bg = pygame.image.load(Level.picpath)
+        bg = pygame.image.load(Level.picpath).convert_alpha()
         while True:
 
             starttime = time.time()
@@ -117,7 +119,7 @@ class Draw():
             screen = pygame.display.set_mode(Level.size)
 
             if self.checkforfinish(Level):
-                endscreen = pygame.image.load(Level.winpicpath)
+                endscreen = pygame.image.load(Level.winpicpath).convert_alpha()
                 endscreensize = endscreen.get_size()
                 print(endscreensize)
                 width, height = screen.get_width(), screen.get_height()
