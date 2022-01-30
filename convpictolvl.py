@@ -17,14 +17,19 @@ for i in range(len(image)):
             matrix[i][j] = "Wall"
         # colors are formated in  BGR (Blue Green Red)
         # Needs to be int of colorvalue because else it creates an overflow encounter in ubyte_scalars
-        if image[i][j][0] == 255 and int(image[i][j][1]) + int(image[i][j][2]) == 0:
+        if int(image[i][j][0]) == 255 and int(image[i][j][1]) + int(image[i][j][2]) == 0:
             matrix[i][j] = "Obstacle"
-
         if int(image[i][j][0]) == 17 and int(image[i][j][1]) == 160 and int(image[i][j][2]) == 33:
             matrix[i][j] = "PSpawn"
+            print("Spawn")
 
         if int(image[i][j][1]) + int(image[i][j][0]) == 0 and int(image[i][j][2]) == 255:
             matrix[i][j] = "PFinish"
+            print("Finish")
+
+        if int(image[i][j][0]) == 0 and int(image[i][j][1]) == 255 and int(image[i][j][2]) == 255:
+            matrix[i][j] = "Coin"
+            print("Coin")
 
 
 # for a bz2 file

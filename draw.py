@@ -67,6 +67,19 @@ class Draw():
         self.musicpath = musicpath
         self.musicobject = pygame.mixer.Sound(self.musicpath)
 
+    def collison_coin(self, Level):
+        Player = Level.Player
+        for coin in Level.coinlist:
+            if Player.rect.colliderect(coin["rect"]):
+                Level.coincount += 1
+                Level.coinlist.remove(coin)
+
+    def drawcoins(self, Level, pygame, screen):
+
+        for coin in Level.coinlist:
+            rect = coin["rect"]
+            screen.blit(Level.coinsprite, rect)
+
     def collision_wall(self, Level):
         """calculates if the player collides with a wall """
         Player = Level.Player
@@ -114,6 +127,7 @@ class Draw():
             if self.collison_obstacle(Level):
                 Level.reset()
 
+            self.collison_coin(Level)
             Player = Level.Player
 
             screen = pygame.display.set_mode(Level.size)
@@ -122,6 +136,7 @@ class Draw():
                 endscreen = pygame.image.load(Level.winpicpath).convert_alpha()
                 endscreensize = endscreen.get_size()
                 print(endscreensize)
+                print(f"Total Coin Count : {Level.coincount}")
                 width, height = screen.get_width(), screen.get_height()
                 screen.blit(
                     endscreen, (
@@ -183,11 +198,12 @@ class Draw():
 
             Player.rect = Player.rect.move(Player.speed)
             screen.blit(bg, (0, 0))  # draw background
+            self.drawcoins(Level, pygame, screen)
             screen.blit(Player.sprite, Player.rect)
             pygame.display.flip()
 
             diff = time.time() - starttime
-
+            print(diff)
             # keeping the amount of ticks (computation cycles) per second roughly the same
             # which in return results in a constant and playable playspeed
             if diff < 1/30:
