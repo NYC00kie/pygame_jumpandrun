@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --onefile --console --icon "./textures/Player_1.ico" --add-data "./draw.py;." --add-data "./level.py;." --add-data "./player.py;." --add-data "./textures;textures/" --add-data "./Levelpictures;Levelpictures/" --add-data "./colorcodedmaps;colorcodedmaps/" --add-data "./backgroundmusic;backgroundmusic/"  "./main.py"
