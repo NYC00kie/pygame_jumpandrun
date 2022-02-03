@@ -6,6 +6,9 @@ create a [Pull Request](https://docs.github.com/en/pull-requests/collaborating-w
 
 
 ## Colorcoding in maps
+
+color in the conpictolvl.py file are BGR but in this file they will be listed as RGB
+
 Wall Markers are in Black (#000000)
 
 Obstacle Markers are Blue (#0000ff)
@@ -13,5 +16,7 @@ Obstacle Markers are Blue (#0000ff)
 Player Spawn Markers are Green (#21a011)
 
 Player Finish Markers are Red (#ff0000)
+
+Coin Markers are Yellow (#ffff00)
 
 the collorcoded maps need to be provided in a compressionless format like .tif (uncompressed) or bmp
