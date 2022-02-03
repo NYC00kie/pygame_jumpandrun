@@ -19,6 +19,7 @@ def resource_path(relative_path):
 
 if __name__ == "__main__":
     pygame.init()
+    pygame.font.init()
     pygame.display.set_mode((1920, 1080))
     level1 = Level(levelmatrixpath=resource_path("Levels/Level1.json.bz"),
                    levelpicpath=resource_path("Levelpictures/Level1.png"),

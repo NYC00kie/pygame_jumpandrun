@@ -23,6 +23,7 @@ class Level():
         self.obstaclelist = self.loadobstacle()
         self.coinlist = self.loadcoins()
         self.coincount = 0
+        self.framecount = 0
         self.Player.rect = self.Player.rect.move(self.start)
 
     def loadPlayerposstart(self):

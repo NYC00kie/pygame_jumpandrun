@@ -115,6 +115,7 @@ class Draw():
             return False
 
     def drawlevel(self, Level, pygame, volume=0.1):
+        font = pygame.font.SysFont(pygame.font.get_fonts()[0], 30)
 
         Level.musicobject = pygame.mixer.Sound(Level.levelmusicpath)
         Level.musicobject.set_volume(volume)
@@ -132,7 +133,18 @@ class Draw():
 
             screen = pygame.display.set_mode(Level.size)
 
+            # a check for when the Player has finished the map
             if self.checkforfinish(Level):
+                münzentext = font.render(
+                    f"Münzen gesammelt: {Level.coincount}", False, (
+                        255, 255, 255
+                        )
+                    )
+                timertext = font.render(
+                    f"Sekunden gebraucht: {Level.framecount/30}s", False, (
+                        255, 255, 255
+                        )
+                    )
                 endscreen = pygame.image.load(Level.winpicpath).convert_alpha()
                 endscreensize = endscreen.get_size()
                 print(endscreensize)
@@ -142,6 +154,24 @@ class Draw():
                     endscreen, (
                         int(width/2-(endscreensize[0]/2)),
                         int(height/2-(endscreensize[1]/2))
+                        )
+                    )
+                screen.blit(
+                    münzentext, (
+                        int(width/2-(münzentext.get_width()/2)),
+                        int(
+                            (height/2+(endscreensize[1]/2))
+                            + (münzentext.get_height()+20)
+                             )
+                        )
+                    )
+                screen.blit(
+                    timertext, (
+                        int(width/2-(timertext.get_width()/2)),
+                        int(
+                            (height/2+(endscreensize[1]/2))
+                            + (münzentext.get_height()+20+timertext.get_height())
+                             )
                         )
                     )
                 pygame.display.flip()
@@ -208,6 +238,7 @@ class Draw():
             # which in return results in a constant and playable playspeed
             if diff < 1/30:
                 time.sleep(1/30-(diff))
+            Level.framecount += 1
 
     def drawmenu(self, Levelist, pygame):
 
