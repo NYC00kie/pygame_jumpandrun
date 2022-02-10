@@ -13,7 +13,7 @@ sys.path.append(".")
 class Button:
     """Create a button, then blit the surface in the while loop"""
 
-    def __init__(self, text,  pos, font, assignedobj, bg="black", feedback=""):
+    def __init__(self, text: str,  pos: list, font: int, assignedobj: object, bg="black", feedback=""):
         self.x, self.y = pos
         self.font = pygame.font.SysFont("Arial", font)
         self.assignedobj = assignedobj
@@ -26,7 +26,7 @@ class Button:
             self.feedback = feedback
         self.change_text(text, bg)
 
-    def change_text(self, text, bg="black"):
+    def change_text(self, text: str, bg="black"):
         """Change the text whe you click"""
         self.text = self.font.render(text, 1, pygame.Color("White"))
         self.size = self.text.get_size()
@@ -67,20 +67,20 @@ class Draw():
         self.musicpath = musicpath
         self.musicobject = pygame.mixer.Sound(self.musicpath)
 
-    def collison_coin(self, Level):
+    def collison_coin(self, Level: object):
         Player = Level.Player
         for coin in Level.coinlist:
             if Player.rect.colliderect(coin["rect"]):
                 Level.coincount += 1
                 Level.coinlist.remove(coin)
 
-    def drawcoins(self, Level, pygame, screen):
+    def drawcoins(self, Level: object, pygame, screen):
 
         for coin in Level.coinlist:
             rect = coin["rect"]
             screen.blit(Level.coinsprite, rect)
 
-    def collision_wall(self, Level):
+    def collision_wall(self, Level: object):
         """calculates if the player collides with a wall """
         Player = Level.Player
 
@@ -97,7 +97,7 @@ class Draw():
 
         return [1, 1]
 
-    def collison_obstacle(self, Level):
+    def collison_obstacle(self, Level: object):
         """calculates if the Player collides with an obstacle and then resets the level"""
         Player = Level.Player
         for cord in Level.obstaclelist:
@@ -105,7 +105,7 @@ class Draw():
                 return True
         return False
 
-    def checkforfinish(self, Level):
+    def checkforfinish(self, Level: object):
         finish = Level.finish
         Player = Level.Player
         if Player.rect.collidepoint(finish[0], finish[1]):
@@ -114,7 +114,7 @@ class Draw():
         else:
             return False
 
-    def drawlevel(self, Level, pygame, volume=0.1):
+    def drawlevel(self, Level: object, pygame, volume=0.1):
         font = pygame.font.SysFont(pygame.font.get_fonts()[0], 30)
 
         Level.musicobject = pygame.mixer.Sound(Level.levelmusicpath)
@@ -240,7 +240,7 @@ class Draw():
                 time.sleep(1/30-(diff))
             Level.framecount += 1
 
-    def drawmenu(self, Levelist, pygame):
+    def drawmenu(self, Levelist: list, pygame):
 
         # light shade of the button
         color_light = (100, 100, 100)

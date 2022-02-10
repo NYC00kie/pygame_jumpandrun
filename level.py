@@ -5,7 +5,7 @@ import compress_json
 class Level():
     """docstring for Level."""
 
-    def __init__(self, levelmatrixpath, levelpicpath, pygame, levelmusicpath="backgroundmusic/Homescreen.mp3", winpicpath="textures/win_1.png", coinspritepath="textures/Coin_1.jpg", spritepath="textures/Char.png"):
+    def __init__(self, levelmatrixpath: str, levelpicpath: str, pygame, levelmusicpath="backgroundmusic/Homescreen.mp3", winpicpath="textures/win_1.png", coinspritepath="textures/Coin_1.jpg", spritepath="textures/Char.png"):
         self.pygame = pygame
         self.matrixpath = levelmatrixpath
         self.matrix = compress_json.load(levelmatrixpath)
@@ -27,6 +27,7 @@ class Level():
         self.Player.rect = self.Player.rect.move(self.start)
 
     def loadPlayerposstart(self):
+        """Get the Player x-y Position from the Level Matrix"""
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == "PSpawn":
@@ -36,6 +37,7 @@ class Level():
         return [0, 0]
 
     def loadfinish(self):
+        """Get the Finish x-y Position from the Level Matrix"""
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == "PFinish":
@@ -44,6 +46,7 @@ class Level():
         return [0, 0]
 
     def loadobstacle(self):
+        """Get a List of Obstacle x-y Positions from the Level Matrix"""
         obstlist = []
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
@@ -52,6 +55,7 @@ class Level():
         return obstlist
 
     def loadcoins(self):
+        """Get a List of a Dictionary with a rectangle and coordiante entry"""
         coinlist = []
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
@@ -68,6 +72,7 @@ class Level():
         return coinlist
 
     def reset(self):
+        """reinitialise the Level Class"""
         self.__init__(pygame=self.pygame, levelmatrixpath=self.matrixpath, levelpicpath=self.picpath,
                       winpicpath=self.winpicpath, coinspritepath=self.coinspritepath, spritepath=self.spritepath,
                       levelmusicpath=self.levelmusicpath)
