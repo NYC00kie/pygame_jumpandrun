@@ -35,7 +35,7 @@ if __name__ == "__main__":
                    spritepath=resource_path("textures/Player_2.png"),
                    coinspritepath=resource_path("textures/Coin_2.png"),
                    winpicpath=resource_path("textures/win_2.png"),
-                   levelmusicpath=resource_path("backgroundmusic/Level.mp3"),
+                   levelmusicpath=resource_path("backgroundmusic/Level2.mp3"),
                    pygame=pygame)
 
     level3 = Level(levelmatrixpath=resource_path("Levels/Level3.json.bz"),
