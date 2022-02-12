@@ -12,11 +12,9 @@ def isnotcurrvernewest(currversion: str):
     splitversion = version.split(".")
     currsplitversion = currversion.split(".")
     print(splitversion, currsplitversion)
-
-    if int(splitversion[0]) > int(currsplitversion[0]):
-        return True
-
-    elif int(splitversion[1]) > int(currsplitversion[1]):
+    print(f"{splitversion[0]}.{splitversion[1]}",
+          f"{currsplitversion[0]}.{currsplitversion[1]}")
+    if float(f"{splitversion[0]}.{splitversion[1]}") > float(f"{currsplitversion[0]}.{currsplitversion[1]}"):
         return True
 
     else:
