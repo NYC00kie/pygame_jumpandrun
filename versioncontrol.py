@@ -1,5 +1,7 @@
 import requests
 import platform
+import subprocess
+import sys
 
 
 def isnotcurrvernewest(currversion: str):
@@ -27,11 +29,23 @@ def downloadnewestversion():
         if asset["name"] == "main.exe" and platform.system() == "Windows":
             print("Downloading")
             file = requests.get(asset["browser_download_url"])
-            with open(asset["name"], "wb") as f:
+            with open(f"new_{asset['name']}", "wb") as f:
                 f.write(file.content)
+
+            subprocess.Popen(
+                # , stdout=sys.stdout
+                f"timeout 5 & del {asset['name']} & timeout 5 & move new_{asset['name']} {asset['name']}", shell=True
+            )
+            sys.exit()
 
         elif asset["name"] == "linux" and platform.system() == "Linux":
             print("Downloading")
             file = requests.get(asset["browser_download_url"])
-            with open(asset["name"], "wb") as f:
+            with open(f"new_{asset['name']}", "wb") as f:
                 f.write(file.content)
+
+            subprocess.Popen(
+                # , stdout=sys.stdout
+                f"timeout 5 & del {asset['name']} & timeout 5 & move new_{asset['name']} {asset['name']}", shell=True
+            )
+            sys.exit()

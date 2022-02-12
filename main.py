@@ -4,7 +4,7 @@ from draw import Draw
 from versioncontrol import isnotcurrvernewest, downloadnewestversion
 import sys
 import os
-
+import subprocess
 
 sys.path.append(".")
 
@@ -22,12 +22,11 @@ def resource_path(relative_path: str):
 
 if __name__ == "__main__":
 
-    currentversion = "1.1.0"
+    currentversion = "2.0.0"
 
     if isnotcurrvernewest(currentversion):
         print("older Version detected")
         downloadnewestversion()
-        exit()
 
     pygame.init()
     pygame.font.init()
