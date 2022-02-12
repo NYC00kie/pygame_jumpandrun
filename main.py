@@ -1,9 +1,10 @@
 import pygame
 from level import Level
 from draw import Draw
+from versioncontrol import isnotcurrvernewest, downloadnewestversion
 import sys
 import os
-import requests
+
 
 sys.path.append(".")
 
@@ -19,30 +20,14 @@ def resource_path(relative_path: str):
     return os.path.join(base_path, relative_path)
 
 
-def isnotcurrvernewest(currversion: str):
-    """get the newest version number and compare it to the current one"""
-    response = requests.get(
-        "https://api.github.com/repos/NYC00kie/pygame_jumpandrun/releases/latest")
-    version = response.json()["name"].replace("v", "")
-    splitversion = version.split(".")
-    currsplitversion = currversion.split(".")
-    if version == currversion:
-        # no new release
-        return False
-
-    elif splitversion[0] >= currsplitversion[0] or splitversion[1] >= currsplitversion[1] or splitversion[2] > currsplitversion[2]:
-        # new release
-        return True
-
-
-def downloadnewestversion():
-    pass
-
-
 if __name__ == "__main__":
-    currentversion = "1.2.0"
+
+    currentversion = "1.1.0"
+
     if isnotcurrvernewest(currentversion):
+        print("older Version detected")
         downloadnewestversion()
+        exit()
 
     pygame.init()
     pygame.font.init()
