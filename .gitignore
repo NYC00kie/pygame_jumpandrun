@@ -130,3 +130,5 @@ dmypy.json
 *.json*
 *test*
 *output
+linux/
+windows/
