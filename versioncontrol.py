@@ -12,8 +12,11 @@ def isnotcurrvernewest(currversion: str):
     splitversion = version.split(".")
     currsplitversion = currversion.split(".")
     print(splitversion, currsplitversion)
-    if splitversion[0] >= currsplitversion[0] or splitversion[1] >= currsplitversion[1]:
-        # no new release
+
+    if int(splitversion[0]) > int(currsplitversion[0]):
+        return True
+
+    elif int(splitversion[1]) > int(currsplitversion[1]):
         return True
 
     else:
