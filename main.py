@@ -4,7 +4,6 @@ from draw import Draw
 from versioncontrol import isnotcurrvernewest, downloadnewestversion
 import sys
 import os
-import subprocess
 
 sys.path.append(".")
 
