@@ -233,7 +233,6 @@ class Draw():
             pygame.display.flip()
 
             diff = time.time() - starttime
-            print(diff)
             # keeping the amount of ticks (computation cycles) per second roughly the same
             # which in return results in a constant and playable playspeed
             if diff < 1/30:
